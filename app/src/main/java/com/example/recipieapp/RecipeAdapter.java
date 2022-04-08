@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,8 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-    Context context;
-    ArrayList<String> recipeIDs, recipeNames, recipeDescriptions;
+    private Context context;
+    private final ArrayList<String> recipeIDs, recipeNames, recipeDescriptions;
+    private Animation animTranslate;
 
     RecipeAdapter(Context context, ArrayList<String> recipeIDs, ArrayList<String> recipeNames,
                   ArrayList<String> recipeDescriptions) {
@@ -62,6 +65,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             recyclerLayout = itemView.findViewById(R.id.recyclerLayout);
+
+            animTranslate = AnimationUtils.loadAnimation(context, R.anim.anim_translate);
+            recyclerLayout.setAnimation(animTranslate);
         }
+
     }
 }
