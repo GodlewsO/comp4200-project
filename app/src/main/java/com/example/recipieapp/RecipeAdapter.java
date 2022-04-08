@@ -1,5 +1,6 @@
 package com.example.recipieapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     private Context context;
     private final ArrayList<String> recipeIDs, recipeNames, recipeDescriptions;
     private Animation animTranslate;
+    AlertDialog.Builder builder;
 
     RecipeAdapter(Context context, ArrayList<String> recipeIDs, ArrayList<String> recipeNames,
                   ArrayList<String> recipeDescriptions) {
@@ -40,14 +42,28 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textViewName.setText(String.valueOf(recipeNames.get(position)));
-        holder.textViewDescription.setText(String.valueOf(recipeDescriptions.get(position)));
+        holder.textViewName.setText(recipeNames.get(position));
+        holder.textViewDescription.setText(recipeDescriptions.get(position));
+
+        // Delete prompt dialog
+        androidx.appcompat.app.AlertDialog alertDialog =
+                new androidx.appcompat.app.AlertDialog.Builder(context).create();
+        alertDialog.setTitle("DELETE");
+        alertDialog.setMessage("Are you sure you want to delete this recipe?");
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, "no",
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, "yes",
+                (dialog, which) -> {
+                    DatabaseHelper databaseHelper = new DatabaseHelper(context);
+                    databaseHelper.removeRecipe(recipeIDs.get(position));
+                    dialog.dismiss();
+                });
 
         holder.recyclerLayout.setOnLongClickListener(view -> {
-            // Prompt for delete on long click
-            // TODO
+            alertDialog.show();
             return false;
         });
+
     }
 
     @Override

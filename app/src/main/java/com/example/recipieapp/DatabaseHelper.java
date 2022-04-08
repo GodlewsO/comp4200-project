@@ -45,9 +45,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
     }
 
+    long removeRecipe(String recipeID) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        return sqLiteDatabase.delete(TABLE_NAME, TABLE_ID + "=?", new String[]{recipeID});
+    }
+
     Cursor retrieveData() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         String query = String.format("SELECT * FROM %s", TABLE_NAME);
         return sqLiteDatabase.rawQuery(query, null);
     }
+
+
 }
