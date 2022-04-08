@@ -16,7 +16,6 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private EditText editTextName, editTextDescription, editTextInstructions;
     private Button btnAdd;
-    private FloatingActionButton btnBack;
 
 
     @Override
@@ -28,7 +27,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextDescription);
         editTextInstructions = findViewById(R.id.editTextInstructions);
         btnAdd = findViewById(R.id.btnAdd);
-        btnBack = findViewById(R.id.btnBack);
 
         btnAdd.setOnClickListener(view -> {
             DatabaseHelper databaseHelper = new DatabaseHelper(AddRecipeActivity.this);
@@ -55,8 +53,5 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
         });
 
-        btnBack.setOnClickListener(view -> {
-            finish();
-        });
     }
 }
