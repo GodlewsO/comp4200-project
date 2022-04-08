@@ -3,15 +3,12 @@ package com.example.recipieapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton btnAddRecipe;
@@ -51,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getRecipeData();
+        recipeAdapter.notifyDataSetChanged();
+
         // Refresh cards after adding new recipe
         // TODO
     }
@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         if (cursor.getCount() < 1) {
             return;
         }
+
+        recipeIDs.clear();
+        recipeNames.clear();
+        recipeDescriptions.clear();
+        recipeInstructions.clear();
 
         while (cursor.moveToNext()) {
             recipeIDs.add(cursor.getString(0));
