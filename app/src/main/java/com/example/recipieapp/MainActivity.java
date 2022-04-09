@@ -1,5 +1,6 @@
 package com.example.recipieapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+    private final int ADD_REQUEST = 1;
+
     FloatingActionButton btnAddRecipe;
     DatabaseHelper databaseHelper;
     ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstructions;
@@ -34,25 +37,23 @@ public class MainActivity extends AppCompatActivity {
 
         getRecipeData();
         recipeAdapter = new RecipeAdapter(MainActivity.this, recipeIDs, recipeNames,
-                recipeDescriptions);
+                recipeDescriptions, recipeInstructions);
         recyclerView.setAdapter(recipeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
         btnAddRecipe.setOnClickListener(view -> {
             Intent addRecipeIntent = new Intent(MainActivity.this,
                                                 AddRecipeActivity.class);
-            startActivity(addRecipeIntent);
+            startActivityForResult(addRecipeIntent, ADD_REQUEST);
         });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        getRecipeData();
-        recipeAdapter.notifyDataSetChanged();
-
-        // Refresh cards after adding new recipe
-        // TODO
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADD_REQUEST){
+            recreate();
+        }
     }
 
     private void getRecipeData() {
@@ -61,11 +62,6 @@ public class MainActivity extends AppCompatActivity {
         if (cursor.getCount() < 1) {
             return;
         }
-
-        recipeIDs.clear();
-        recipeNames.clear();
-        recipeDescriptions.clear();
-        recipeInstructions.clear();
 
         while (cursor.moveToNext()) {
             recipeIDs.add(cursor.getString(0));

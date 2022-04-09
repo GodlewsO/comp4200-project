@@ -17,12 +17,11 @@ import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
     private Context context;
-    private final ArrayList<String> recipeIDs, recipeNames, recipeDescriptions;
+    private final ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstrcutions;
     private Animation animTranslate;
-    AlertDialog.Builder builder;
 
     RecipeAdapter(Context context, ArrayList<String> recipeIDs, ArrayList<String> recipeNames,
-                  ArrayList<String> recipeDescriptions) {
+                  ArrayList<String> recipeDescriptions, ArrayList<String> recipeInstructions) {
         assert (recipeIDs.size() == recipeNames.size() &&
                 recipeIDs.size() == recipeDescriptions.size());
 
@@ -30,6 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         this.recipeIDs = recipeIDs;
         this.recipeNames = recipeNames;
         this.recipeDescriptions = recipeDescriptions;
+        this.recipeInstrcutions = recipeInstructions;
     }
 
     @NonNull
@@ -55,7 +55,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, "yes",
                 (dialog, which) -> {
                     DatabaseHelper databaseHelper = new DatabaseHelper(context);
-                    databaseHelper.removeRecipe(recipeIDs.get(position));
+
+                    if (databaseHelper.removeRecipe(recipeIDs.get(position)) < 0) {
+                        // unsuccessfully deleted toast
+                        // TODO
+
+                    } else {
+                        recipeIDs.remove(position);
+                        recipeNames.remove(position);
+                        recipeDescriptions.remove(position);
+                        recipeInstrcutions.remove(position);
+                        notifyItemRemoved(position);
+                    }
                     dialog.dismiss();
                 });
 

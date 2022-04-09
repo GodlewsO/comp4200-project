@@ -44,7 +44,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             // Add user input to database
             if (databaseHelper.addRecipe(editTextName.getText().toString(),
                     editTextDescription.getText().toString(),
-                    editTextInstructions.getText().toString()) == -1) {
+                    editTextInstructions.getText().toString()) < 0) {
                 Toast.makeText(getApplicationContext(),
                         ADD_FAILED_MESSAGE,
                         Toast.LENGTH_SHORT).show();
