@@ -85,9 +85,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         });
 
         holder.recyclerLayout.setOnClickListener(view -> {
-            // for now passing information about
-            // recipe here assuming it's more efficient than
-            // getting it from the database later
             Intent viewRecipeIntent = new Intent(context, ViewRecipeActivity.class);
 
             viewRecipeIntent.putExtra("recipe-id", recipeIDs.get(position));
