@@ -57,8 +57,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = String.format("SELECT * FROM %s", TABLE_NAME);
         return sqLiteDatabase.rawQuery(query, null);
     }
-
-
-
-
 }

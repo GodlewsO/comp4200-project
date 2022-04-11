@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
@@ -23,6 +25,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     private final ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstrcutions;
     private final ArrayList<String> recipeIngredients;
     private Animation animTranslate;
+
 
     RecipeAdapter(Context context, ArrayList<String> recipeIDs, ArrayList<String> recipeNames,
                   ArrayList<String> recipeDescriptions, ArrayList<String> recipeInstructions,
@@ -37,6 +40,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         this.recipeDescriptions = recipeDescriptions;
         this.recipeInstrcutions = recipeInstructions;
         this.recipeIngredients = recipeIngredients;
+
     }
 
     @NonNull
@@ -117,6 +121,5 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             animTranslate = AnimationUtils.loadAnimation(context, R.anim.anim_translate);
             recyclerLayout.setAnimation(animTranslate);
         }
-
     }
 }
