@@ -2,6 +2,7 @@ package com.example.recipieapp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             return false;
         });
 
+        holder.recyclerLayout.setOnClickListener(view -> {
+            // for now passing information about
+            // recipe here assuming it's more efficient than
+            // getting it from the database later
+            Intent viewRecipeIntent = new Intent(context, ViewRecipeActivity.class);
+
+            viewRecipeIntent.putExtra("recipe-id", recipeIDs.get(position));
+            viewRecipeIntent.putExtra("recipe-name", recipeNames.get(position));
+            viewRecipeIntent.putExtra("recipe-desc", recipeDescriptions.get(position));
+            viewRecipeIntent.putExtra("recipe-instructions",
+                    recipeInstrcutions.get(position));
+
+            context.startActivity(viewRecipeIntent);
+        });
     }
 
     @Override

@@ -16,7 +16,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_INSTRUCTIONS = "instructions";
 
-
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
     }
