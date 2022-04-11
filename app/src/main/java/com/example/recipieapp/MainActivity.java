@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton btnAddRecipe;
     DatabaseHelper databaseHelper;
-    ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstructions;
+    ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstructions, recipeIngredients;
     RecyclerView recyclerView;
     RecipeAdapter recipeAdapter;
 
@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
         recipeNames = new ArrayList<>();
         recipeDescriptions = new ArrayList<>();
         recipeInstructions = new ArrayList<>();
+        recipeIngredients = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
         btnAddRecipe = findViewById(R.id.btnAddRecipe);
 
         getRecipeData();
         recipeAdapter = new RecipeAdapter(MainActivity.this, recipeIDs, recipeNames,
-                recipeDescriptions, recipeInstructions);
+                recipeDescriptions, recipeInstructions, recipeIngredients);
         recyclerView.setAdapter(recipeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             recipeNames.add(cursor.getString(1));
             recipeDescriptions.add(cursor.getString(2));
             recipeInstructions.add(cursor.getString(3));
+            recipeIngredients.add(cursor.getString(4));
         }
     }
 }

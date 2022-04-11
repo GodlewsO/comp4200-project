@@ -1,6 +1,5 @@
 package com.example.recipieapp;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,20 +17,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+    private final String UNSUCCESSFUL_DELETED_MESSAGE = "failed to delete item";
+
     private Context context;
     private final ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstrcutions;
+    private final ArrayList<String> recipeIngredients;
     private Animation animTranslate;
 
     RecipeAdapter(Context context, ArrayList<String> recipeIDs, ArrayList<String> recipeNames,
-                  ArrayList<String> recipeDescriptions, ArrayList<String> recipeInstructions) {
+                  ArrayList<String> recipeDescriptions, ArrayList<String> recipeInstructions,
+                  ArrayList<String> recipeIngredients) {
         assert (recipeIDs.size() == recipeNames.size() &&
-                recipeIDs.size() == recipeDescriptions.size());
+                recipeIDs.size() == recipeDescriptions.size() &&
+                recipeIDs.size() == recipeIngredients.size());
 
         this.context = context;
         this.recipeIDs = recipeIDs;
         this.recipeNames = recipeNames;
         this.recipeDescriptions = recipeDescriptions;
         this.recipeInstrcutions = recipeInstructions;
+        this.recipeIngredients = recipeIngredients;
     }
 
     @NonNull
@@ -58,14 +64,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     DatabaseHelper databaseHelper = new DatabaseHelper(context);
 
                     if (databaseHelper.removeRecipe(recipeIDs.get(position)) < 0) {
-                        // unsuccessfully deleted toast
-                        // TODO
+                        Toast.makeText(context,
+                                UNSUCCESSFUL_DELETED_MESSAGE,
+                                Toast.LENGTH_SHORT).show();
 
                     } else {
                         recipeIDs.remove(position);
                         recipeNames.remove(position);
                         recipeDescriptions.remove(position);
                         recipeInstrcutions.remove(position);
+                        recipeIngredients.remove(position);
                         notifyItemRemoved(position);
                     }
                     dialog.dismiss();
@@ -87,6 +95,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             viewRecipeIntent.putExtra("recipe-desc", recipeDescriptions.get(position));
             viewRecipeIntent.putExtra("recipe-instructions",
                     recipeInstrcutions.get(position));
+            viewRecipeIntent.putExtra("recipe-ingredients", recipeIngredients.get(position));
 
             context.startActivity(viewRecipeIntent);
         });

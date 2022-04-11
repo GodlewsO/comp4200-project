@@ -13,6 +13,9 @@
             android:name=".ViewRecipeActivity"
             android:exported="false" />
         <activity
+            android:name=".DisplayRecipeActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddRecipeActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />

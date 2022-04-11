@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_INSTRUCTIONS = "instructions";
+    private static final String COLUMN_INGREDIENTS = "ingredients";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -22,8 +23,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String query = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT)",
-                                     TABLE_NAME, TABLE_ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_INSTRUCTIONS);
+        String query = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+                TABLE_NAME, TABLE_ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_INSTRUCTIONS,
+                COLUMN_INGREDIENTS);
         sqLiteDatabase.execSQL(query);
     }
 
@@ -34,13 +36,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    long addRecipe(String name, String description, String recipe) {
+    long addRecipe(String name, String description, String recipe, String ingredients) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COLUMN_NAME, name);
         contentValues.put(COLUMN_DESCRIPTION, description);
         contentValues.put(COLUMN_INSTRUCTIONS, recipe);
+        contentValues.put(COLUMN_INGREDIENTS, ingredients);
         return sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
     }
 
