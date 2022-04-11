@@ -16,9 +16,11 @@
             android:id="@+id/textViewName1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="casual"
             android:gravity="center"
             android:text="name"
-            android:textSize="26sp"
+            android:textColor="#000000"
+            android:textSize="34sp"
             android:textStyle="bold" />
 
         <TextView
@@ -26,7 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Ingredients" />
+            android:fontFamily="casual"
+            android:text="INGREDIENTS"
+            android:textColor="#000000"
+            android:textSize="26sp" />
 
         <ListView
             android:id="@+id/listViewIngredients"
@@ -37,10 +42,14 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:text="Instructions" />
+            android:fontFamily="casual"
+            android:text="INSTRUCTIONS"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="26sp" />
 
         <TextView
             android:id="@+id/textViewInstructions"
