@@ -11,9 +11,9 @@
         android:theme="@style/Theme.RecipieApp">
         <activity
             android:name=".ViewRecipeActivity"
-            android:label="You Can Cook"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:label="You Can Cook" />
         <activity
             android:name=".AddRecipeActivity"
             android:label="Add Recipe"

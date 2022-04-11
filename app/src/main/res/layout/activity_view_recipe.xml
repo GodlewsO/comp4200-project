@@ -62,16 +62,47 @@
             android:id="@+id/progressBarAlarm"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="177dp"
-            android:layout_height="115dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:progress="0" />
 
-        <EditText
-            android:id="@+id/editTextAlarmTime"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonStartTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Start" />
+
+            <Button
+                android:id="@+id/buttonRestartTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:text="Restart" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:text="Count down timer" />
+
+        <EditText
+            android:id="@+id/editTextAlarmTime"
+            android:layout_width="198dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
             android:ems="10"
+            android:gravity="center"
+            android:hint="HH:MM:SS"
             android:inputType="time" />
     </LinearLayout>
 </ScrollView>
