@@ -85,19 +85,19 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonStartTimer"
+                android:id="@+id/buttonStartPauseTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Start" />
 
             <Button
-                android:id="@+id/buttonRestartTimer"
+                android:id="@+id/buttonCancelTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:enabled="false"
-                android:text="Restart" />
+                android:text="Cancel" />
         </LinearLayout>
 
         <TextView
@@ -109,12 +109,12 @@
 
         <EditText
             android:id="@+id/editTextAlarmTime"
-            android:layout_width="198dp"
-            android:layout_height="52dp"
+            android:layout_width="231dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:ems="10"
             android:gravity="center"
-            android:hint="HH:MM:SS"
+            android:hint="[[Hours:]Minutes:]Seconds"
             android:inputType="time" />
     </LinearLayout>
 </ScrollView>

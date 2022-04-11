@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,19 +19,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class ViewRecipeActivity extends AppCompatActivity {
     private ListView listViewIngredients;
     private TextView textViewInstructions, textViewName;
     private EditText editTextAlarmTime;
     private ProgressBar progressBarAlarm;
-    private Button buttonStartTimer, buttonRestartTimer;
+    private Button buttonStartPauseTimer, buttonCancelTimer;
 
     private View.OnClickListener startTimerOnClick, pauseTimerOnClick;
-    Handler handlerTimer;
-    Runnable runnableOnSeconds;
+    private Handler handlerTimer;
+    private Runnable runnableOnSeconds;
+
+    MediaPlayer mediaPlayerAlarm;
 
     private String recipeName, recipeDesc, recipeInstructions;
     private String[] recipeIngredients;
@@ -42,8 +45,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
         textViewInstructions = findViewById(R.id.textViewInstructions);
         editTextAlarmTime = findViewById(R.id.editTextAlarmTime);
         progressBarAlarm = findViewById(R.id.progressBarAlarm);
-        buttonStartTimer = findViewById(R.id.buttonStartTimer);
-        buttonRestartTimer = findViewById(R.id.buttonRestartTimer);
+        buttonStartPauseTimer = findViewById(R.id.buttonStartPauseTimer);
+        buttonCancelTimer = findViewById(R.id.buttonCancelTimer);
 
         Intent thisIntent = getIntent();
         recipeName = thisIntent.getStringExtra("recipe-name");
@@ -76,10 +79,10 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
             startCountingTime();
 
-            buttonRestartTimer.setEnabled(true);
+            buttonCancelTimer.setEnabled(true);
 
-            buttonStartTimer.setText("Pause");
-            buttonStartTimer.setOnClickListener(pauseTimerOnClick);
+            buttonStartPauseTimer.setText("Pause");
+            buttonStartPauseTimer.setOnClickListener(pauseTimerOnClick);
 
             editTextAlarmTime.setEnabled(false);
             // on finish, should make some sort of noise/notification
@@ -89,17 +92,24 @@ public class ViewRecipeActivity extends AppCompatActivity {
         pauseTimerOnClick = view -> {
             // stop handler function
             stopCountingTime();
-            // rename to start/resume timer
-            buttonStartTimer.setText("Resume");
-            buttonStartTimer.setOnClickListener(startTimerOnClick);
 
-            editTextAlarmTime.setEnabled(false);
+            // rename to start/resume timer
+            buttonStartPauseTimer.setText("Resume");
+            buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
         };
 
-        buttonStartTimer.setOnClickListener(startTimerOnClick);
+        buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
 
-        buttonRestartTimer.setOnClickListener(view -> {
+        buttonCancelTimer.setOnClickListener(view -> {
             progressBarAlarm.setProgress(0);
+
+            buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
+
+            editTextAlarmTime.setEnabled(true);
+            buttonCancelTimer.setEnabled(false);
+
+            if(mediaPlayerAlarm.isPlaying())
+                mediaPlayerAlarm.stop();
         });
 
         // this runs every 10 seconds, used by handler to
@@ -119,25 +129,38 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
                 handlerTimer.postDelayed(this, 1000);
 
-                if(timeLeft == 0)
+                if(timeLeft <= 0)
                     onTimerReachedEnd();
             }
         };
 
         handlerTimer = new Handler();
+
     }
 
     private void onTimerReachedEnd() {
         stopCountingTime();
 
-        buttonStartTimer.setOnClickListener(startTimerOnClick);
-        buttonStartTimer.setText("Start");
-        buttonRestartTimer.setEnabled(false);
-
+        buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
+        buttonStartPauseTimer.setText("Start");
         editTextAlarmTime.setText("");
         editTextAlarmTime.setEnabled(true);
 
         progressBarAlarm.setProgress(0);
+
+        mediaPlayerAlarm = MediaPlayer.create(this,
+                Settings.System.DEFAULT_ALARM_ALERT_URI);
+        mediaPlayerAlarm.setLooping(true);
+        mediaPlayerAlarm.start();
+
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            vibrator.vibrate(
+                    VibrationEffect.createOneShot(2000,
+                            VibrationEffect.DEFAULT_AMPLITUDE));
+        else
+            vibrator.vibrate(2000);
     }
 
     private int getAlarmInputTimeInSeconds() {
