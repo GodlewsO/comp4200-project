@@ -47,7 +47,9 @@
             android:layout_width="353dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/textview_border"
+            android:padding="10dp"/>
 
         <TextView
             android:id="@+id/textView6"
