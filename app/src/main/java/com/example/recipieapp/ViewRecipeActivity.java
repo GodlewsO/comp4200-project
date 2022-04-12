@@ -85,8 +85,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
             buttonStartPauseTimer.setOnClickListener(pauseTimerOnClick);
 
             editTextAlarmTime.setEnabled(false);
-            // on finish, should make some sort of noise/notification
-            // start restart time
         };
 
         pauseTimerOnClick = view -> {
@@ -104,11 +102,15 @@ public class ViewRecipeActivity extends AppCompatActivity {
             progressBarAlarm.setProgress(0);
 
             buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
+            buttonStartPauseTimer.setText("Start");
 
             editTextAlarmTime.setEnabled(true);
             buttonCancelTimer.setEnabled(false);
+            stopCountingTime();
 
-            if(mediaPlayerAlarm.isPlaying())
+            editTextAlarmTime.setText("");
+
+            if(mediaPlayerAlarm != null && mediaPlayerAlarm.isPlaying())
                 mediaPlayerAlarm.stop();
         });
 
@@ -143,7 +145,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
         buttonStartPauseTimer.setText("Start");
-        editTextAlarmTime.setText("");
+        editTextAlarmTime.setText("Time is up!");
         editTextAlarmTime.setEnabled(true);
 
         progressBarAlarm.setProgress(0);
