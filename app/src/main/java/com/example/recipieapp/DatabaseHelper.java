@@ -23,7 +23,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String query = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+        String query = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
                 TABLE_NAME, TABLE_ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_INSTRUCTIONS,
                 COLUMN_INGREDIENTS);
         sqLiteDatabase.execSQL(query);
@@ -57,9 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = String.format("SELECT * FROM %s", TABLE_NAME);
         return sqLiteDatabase.rawQuery(query, null);
     }
-    Cursor searchData(String recipeTitle){
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.query(TABLE_NAME, null, "name=?", new String[]{recipeTitle}, null, null, null, "1");
 
+    Cursor searchData(String recipeTitle) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        String query = "SELECT " + "*" +
+                       " FROM " + TABLE_NAME +
+                       " WHERE " + COLUMN_NAME + " LIKE '" + recipeTitle + "%'";
+        return sqLiteDatabase.rawQuery(query, null);
     }
 }

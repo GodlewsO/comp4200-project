@@ -18,7 +18,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     private final String EMPTY_INPUT_MESSAGE = "Cannot be empty";
     private final String TOO_LARGE_MESSAGE = "ERROR";
     private final String INGREDIENT_ADDED_MESSAGE = "Ingredient added";
-    private final String INVALID_CHARACTER_MESSAGE = "Invalid character";
+    private final String INVALID_CHARACTER_MESSAGE = "Invalid character ';'";
     private final String MISSING_INGREDIENTS_MESSAGE = "Need at least one ingredient";
     private final int MAX_INGREDIENT_SIZE = 50;
 
