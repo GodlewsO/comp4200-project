@@ -93,6 +93,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                 return;
             }
 
+            editTextDescription.setText("");
+
             ingredientsLst.add(ingredient);
             makeToast(INGREDIENT_ADDED_MESSAGE);
             return;
