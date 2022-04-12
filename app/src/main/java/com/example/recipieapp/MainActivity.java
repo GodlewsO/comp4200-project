@@ -7,6 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
@@ -20,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstructions, recipeIngredients;
     RecyclerView recyclerView;
     RecipeAdapter recipeAdapter;
+    Button btnRecipeSearch;
+    EditText et_recipeSearch;
 
 
     @Override
@@ -36,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         btnAddRecipe = findViewById(R.id.btnAddRecipe);
+        et_recipeSearch = findViewById(R.id.editText_RecipeSearch);
+        btnRecipeSearch = findViewById(R.id.button_searchRecipe);
 
         getRecipeData();
         recipeAdapter = new RecipeAdapter(MainActivity.this, recipeIDs, recipeNames,
@@ -48,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
                                                 AddRecipeActivity.class);
             startActivityForResult(addRecipeIntent, ADD_REQUEST);
         });
+        btnRecipeSearch.setOnClickListener(view->{
+            getRecipeSearch(et_recipeSearch.getText().toString());
+        });
+
+
     }
 
     @Override
@@ -76,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO
     private void getRecipeSearch(String name) {
+        Intent viewRecipeIntent = new Intent(MainActivity.this, ViewRecipeActivity.class);
+        Cursor cursor = databaseHelper.searchData(name);
+        if(cursor.getCount()==0){
+            Toast.makeText(getApplicationContext(), "No data found", Toast.LENGTH_LONG).show();
+        }else{
+            while(cursor.moveToNext()) {
+                viewRecipeIntent.putExtra("recipe-id", cursor.getString(0));
+                viewRecipeIntent.putExtra("recipe-name", cursor.getString(1));
+                viewRecipeIntent.putExtra("recipe-desc", cursor.getString(2));
+                viewRecipeIntent.putExtra("recipe-instructions",
+                        cursor.getString(3));
+                viewRecipeIntent.putExtra("recipe-ingredients", cursor.getString(4));
+                startActivity(viewRecipeIntent);
+            }
+        }
 
     }
 }

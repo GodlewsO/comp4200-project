@@ -57,4 +57,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = String.format("SELECT * FROM %s", TABLE_NAME);
         return sqLiteDatabase.rawQuery(query, null);
     }
+    Cursor searchData(String recipeTitle){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.query(TABLE_NAME, null, "name=?", new String[]{recipeTitle}, null, null, null, "1");
+
+    }
 }
