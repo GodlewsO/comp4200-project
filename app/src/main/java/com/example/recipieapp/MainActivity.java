@@ -11,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
+@SuppressWarnings("ALL")
 public class MainActivity extends AppCompatActivity {
     private final int ADD_REQUEST = 1;
 
@@ -71,5 +72,10 @@ public class MainActivity extends AppCompatActivity {
             recipeInstructions.add(cursor.getString(3));
             recipeIngredients.add(cursor.getString(4));
         }
+    }
+
+    // TODO
+    private void getRecipeSearch(String name) {
+
     }
 }
