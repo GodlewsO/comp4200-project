@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                int result = getRecipeSearch(s);
+                int result = searchByName(s);
                 if (result >= 0) {
                     searchView.setQuery("", false);
                     searchView.setQueryHint(s);
@@ -130,6 +130,32 @@ public class MainActivity extends AppCompatActivity {
         return populateArrays(cursor);
     }
 
+    /**
+     * Searches a recipies name, description, and ingredients for a given string, and populates
+     * the recyclerView arrays if a match is found. Returns the number of results found.
+     *
+     * @param input: the given string to search
+     * @return the number of results found
+     */
+    private int searchByName(String input) {
+        populateArrays(databaseHelper.retrieveData());
+
+        for (int i = 0; i < recipeIDs.size();) {
+            if (!(recipeNames.get(i).toLowerCase().contains(input.toLowerCase()) ||
+                  recipeDescriptions.get(i).toLowerCase().contains(input.toLowerCase()) ||
+                  recipeIngredients.get(i).toLowerCase().contains(input.toLowerCase()))) {
+                recipeIDs.remove(i);
+                recipeNames.remove(i);
+                recipeDescriptions.remove(i);
+                recipeInstructions.remove(i);
+                recipeIngredients.remove(i);
+            } else {
+                i++;
+            }
+        }
+
+        return recipeIDs.size();
+    }
 
     /**
      * Populates instance arrays with data from given cursor object and returns the number

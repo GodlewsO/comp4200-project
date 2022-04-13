@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewRecipeActivity extends AppCompatActivity {
-    private final int INGREDIENT_SIZE = 128;
+    private final int INGREDIENT_SIZE = 130;
 
     private ListView listViewIngredients;
     private TextView textViewInstructions;
