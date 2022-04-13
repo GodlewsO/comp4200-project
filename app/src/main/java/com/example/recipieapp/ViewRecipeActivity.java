@@ -15,17 +15,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewRecipeActivity extends AppCompatActivity {
+    private final int INGREDIENT_SIZE = 128;
+
     private ListView listViewIngredients;
-    private TextView textViewInstructions, textViewName;
+    private TextView textViewInstructions;
     private EditText editTextAlarmTime;
     private ProgressBar progressBarAlarm;
     private Button buttonStartPauseTimer, buttonCancelTimer;
@@ -48,7 +52,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         recipeID = getIntent().getStringExtra("recipe-id");
 
-        textViewName = findViewById(R.id.textViewName1);
         listViewIngredients = findViewById(R.id.listViewIngredients);
         textViewInstructions = findViewById(R.id.textViewInstructions);
         editTextAlarmTime = findViewById(R.id.editTextAlarmTime);
@@ -62,11 +65,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
         recipeInstructions = thisIntent.getStringExtra("recipe-instructions");
         recipeIngredients = ingredientsToLst(thisIntent.getStringExtra("recipe-ingredients"));
 
-        textViewName.setText(recipeName);
+        setTitle(recipeName.substring(0, 1).toUpperCase() + recipeName.substring(1));
         listViewIngredients.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listViewIngredients.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_multiple_choice, recipeIngredients));
         textViewInstructions.setText(recipeInstructions);
+
+        ViewGroup.LayoutParams params = listViewIngredients.getLayoutParams();
+        params.height = INGREDIENT_SIZE * recipeIngredients.length;
 
         startTimerOnClick = view -> {
             // get time from user

@@ -13,17 +13,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewName1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="casual"
-            android:gravity="center"
-            android:text="name"
-            android:textColor="#000000"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,9 +25,10 @@
         <ListView
             android:id="@+id/listViewIngredients"
             android:layout_width="350dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/textview_border" />
 
         <TextView
             android:id="@+id/textView4"
@@ -73,7 +63,6 @@
 
         <ProgressBar
             android:id="@+id/progressBarAlarm"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="177dp"
             android:layout_height="40dp"
             android:layout_gravity="center"

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class AddRecipeActivity extends AppCompatActivity {
+    private final int INGREDIENT_SIZE = 130;
+
     private final String MISSING_INPUT_MESSAGE = "Required fields missing";
     private final String ADD_FAILED_MESSAGE = "Failed to add recipe";
     private final String EMPTY_INPUT_MESSAGE = "Cannot be empty";
@@ -50,6 +53,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         ArrayAdapter arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, ingredientsLst);
         listView.setAdapter(arrayAdapter);
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
 
         btnAdd.setOnClickListener(view -> {
             DatabaseHelper databaseHelper = new DatabaseHelper(AddRecipeActivity.this);
@@ -106,7 +111,8 @@ public class AddRecipeActivity extends AppCompatActivity {
             ingredientsLst.add(ingredient);
             arrayAdapter.notifyDataSetChanged();
             makeToast(INGREDIENT_ADDED_MESSAGE);
-            return;
+
+            params.height = INGREDIENT_SIZE * ingredientsLst.size();
         });
 
     }
