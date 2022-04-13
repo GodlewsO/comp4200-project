@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
      * Populates instance arrays from all recipes in database.
      */
     private void getRecipeData() {
-        Cursor cursor = databaseHelper.retrieveData();
+        List<Recipe> cursor = databaseHelper.getAllRecipes();
         populateArrays(cursor);
     }
 
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
      * @return the number of results found
      */
     private int searchByName(String input) {
-        populateArrays(databaseHelper.retrieveData());
+        populateArrays(databaseHelper.getAllRecipes());
 
         for (int i = 0; i < recipeIDs.size();) {
             if (!(recipeNames.get(i).toLowerCase().contains(input.toLowerCase()) ||
