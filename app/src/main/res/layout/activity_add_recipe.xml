@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow">
+    android:background="@drawable/bg_image2">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,8 +33,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btnAddIngredient"
                 app:layout_constraintHorizontal_bias="0.909"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
-                android:backgroundTint="@color/white"/>
+                app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
             <EditText
                 android:id="@+id/editTextName"
@@ -56,7 +55,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="@color/white"/>
+                />
 
             <EditText
                 android:id="@+id/editTextInstructions"

@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.bg_image);
         ActionBar actionBar;
         actionBar = getSupportActionBar();
 
