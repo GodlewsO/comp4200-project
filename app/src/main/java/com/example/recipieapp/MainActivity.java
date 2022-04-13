@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
+        searchView.clearFocus();
+
         getRecipeData();
         recipeAdapter = new RecipeAdapter(MainActivity.this, recipeIDs, recipeNames,
                 recipeDescriptions, recipeInstructions, recipeIngredients);

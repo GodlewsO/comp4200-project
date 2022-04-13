@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,6 +27,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     private EditText editTextName, editTextDescription, editTextIngredient, editTextInstructions;
     private FloatingActionButton btnAdd;
     private Button btnAddIngredient;
+    private ListView listView;
 
     private ArrayList<String> ingredientsLst;
 
@@ -40,9 +43,13 @@ public class AddRecipeActivity extends AppCompatActivity {
         editTextInstructions = findViewById(R.id.editTextInstructions);
         btnAddIngredient = findViewById(R.id.btnAddIngredient);
         btnAdd = findViewById(R.id.btnAdd);
-
+        listView = findViewById(R.id.listView);
 
         ingredientsLst = new ArrayList<>();
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, ingredientsLst);
+        listView.setAdapter(arrayAdapter);
 
         btnAdd.setOnClickListener(view -> {
             DatabaseHelper databaseHelper = new DatabaseHelper(AddRecipeActivity.this);
@@ -77,6 +84,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             // Check if empty ingredient inputted
             if (editTextIngredient.getText().toString().equals("")) {
                 makeToast(EMPTY_INPUT_MESSAGE);
+                return;
             }
 
             String ingredient = editTextIngredient.getText().toString();
@@ -93,9 +101,10 @@ public class AddRecipeActivity extends AppCompatActivity {
                 return;
             }
 
-            editTextDescription.setText("");
+            editTextIngredient.setText("");
 
             ingredientsLst.add(ingredient);
+            arrayAdapter.notifyDataSetChanged();
             makeToast(INGREDIENT_ADDED_MESSAGE);
             return;
         });
