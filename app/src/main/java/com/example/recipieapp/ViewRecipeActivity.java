@@ -119,10 +119,13 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
             buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
             buttonStartPauseTimer.setText("Start");
+            buttonStartPauseTimer.setEnabled(true);
 
             editTextAlarmTime.setEnabled(true);
-            buttonStartPauseTimer.setEnabled(true);
+
             buttonCancelTimer.setEnabled(false);
+            buttonCancelTimer.setText("Pause");
+
             stopCountingTime();
 
             editTextAlarmTime.setText("");
@@ -162,9 +165,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         buttonStartPauseTimer.setOnClickListener(startTimerOnClick);
         buttonStartPauseTimer.setText("Start");
+        buttonStartPauseTimer.setEnabled(false);
         editTextAlarmTime.setText("Time is up!");
         editTextAlarmTime.setEnabled(true);
-        buttonStartPauseTimer.setEnabled(false);
+
+        buttonCancelTimer.setText("END");
 
         progressBarAlarm.setProgress(0);
 
