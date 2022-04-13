@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @SuppressWarnings("ALL")
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private final String DATABASE_ERROR = "Database Error";
 
     private FloatingActionButton btnAddRecipe;
-    private DatabaseHelper databaseHelper;
+    private RecipeDAO databaseHelper;
     private ArrayList<String> recipeIDs, recipeNames, recipeDescriptions, recipeInstructions, recipeIngredients;
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        databaseHelper = new DatabaseHelper(MainActivity.this);
+        databaseHelper = RoomDBHelper.getInstance(this).recipeDAO();
         recipeIDs = new ArrayList<>();
         recipeNames = new ArrayList<>();
         recipeDescriptions = new ArrayList<>();
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
      * Populates instance arrays from all recipes in database.
      */
     private void getRecipeData() {
-        Cursor cursor = databaseHelper.retrieveData();
+        List<Recipe> cursor = databaseHelper.getAllRecipes();
         populateArrays(cursor);
     }
 
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
      * @param input: the given string
      */
     private int getRecipeSearch(String input) {
-        Cursor cursor = databaseHelper.searchData(input);
+        List<Recipe> cursor = databaseHelper.searchRecipesByName(input);
         return populateArrays(cursor);
     }
 
@@ -138,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
      * @param cursor : the cursor object
      * @return the number of retrieved items
      */
-    private int populateArrays(Cursor cursor) {
-        if (cursor.getCount() < 0) {
+    private int populateArrays(List<Recipe> cursor) {
+        /*if (cursor.getCount() < 0) {
             Toast.makeText(getApplicationContext(), DATABASE_ERROR, Toast.LENGTH_SHORT).show();
             return -1;
-        }
+        }*/
 
         recipeIDs.clear();
         recipeNames.clear();
@@ -151,20 +152,20 @@ public class MainActivity extends AppCompatActivity {
         recipeIngredients.clear();
 
 
-        if (cursor.getCount() == 0) {
+        if (cursor.size() == 0) {
             Toast.makeText(getApplicationContext(), NO_RESULT, Toast.LENGTH_SHORT).show();
             return 0;
         }
 
-        while (cursor.moveToNext()) {
-            recipeIDs.add(cursor.getString(0));
-            recipeNames.add(cursor.getString(1));
-            recipeDescriptions.add(cursor.getString(2));
-            recipeInstructions.add(cursor.getString(3));
-            recipeIngredients.add(cursor.getString(4));
+        for(Recipe recipe : cursor) {
+            recipeIDs.add("" + recipe.get_id());
+            recipeNames.add(recipe.getName());
+            recipeDescriptions.add(recipe.getDescription());
+            recipeInstructions.add(recipe.getInstructions());
+            recipeIngredients.add(recipe.getIngredients());
         }
 
-        return cursor.getCount();
+        return cursor.size();
     }
 
     protected void onResume() {

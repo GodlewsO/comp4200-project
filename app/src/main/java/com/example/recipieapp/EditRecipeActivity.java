@@ -88,7 +88,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     }
 
     private void editRecipeDB() {
-        DatabaseHelper databaseHelper = new DatabaseHelper(EditRecipeActivity.this);
+        RoomDBHelper databaseHelper = RoomDBHelper.getInstance(this);
 
         // Check if at least one ingredient was added
         if (ingredientsLst.size() < 1) {
@@ -105,10 +105,11 @@ public class EditRecipeActivity extends AppCompatActivity {
         }
 
         // Update database with user input
-        if (databaseHelper.editRecipe(recipeID, editTextName.getText().toString(),
+        if (databaseHelper.recipeDAO()
+                .updateRecipe(new Recipe(recipeID, editTextName.getText().toString(),
                 editTextDescription.getText().toString(),
                 editTextInstructions.getText().toString(),
-                ingredientsToString()) < 0) {
+                ingredientsToString())) < 0) {
             makeToast(EDIT_FAILED_MESSAGE);
         } else {
             finish();

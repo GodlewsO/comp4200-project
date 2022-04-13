@@ -73,9 +73,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 (dialog, which) -> dialog.dismiss());
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, "yes",
                 (dialog, which) -> {
-                    DatabaseHelper databaseHelper = new DatabaseHelper(context);
+                    RoomDBHelper databaseHelper = RoomDBHelper.getInstance(context);
 
-                    if (databaseHelper.removeRecipe(recipeIDs.get(position)) < 0) {
+                    if (databaseHelper.recipeDAO().deleteRecipeById(recipeIDs.get(position)) < 0) {
                         Toast.makeText(context,
                                 UNSUCCESSFUL_DELETED_MESSAGE,
                                 Toast.LENGTH_SHORT).show();

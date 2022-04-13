@@ -220,8 +220,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
             editRecipe();
 
         } else if(item.getItemId() == R.id.deleteRecipe) {
-            DatabaseHelper db = new DatabaseHelper(this);
-            db.removeRecipe(recipeID);
+            RecipeDAO db = RoomDBHelper.getInstance(this).recipeDAO();
+            db.deleteRecipeById(recipeID);
             finish();
         }
 
