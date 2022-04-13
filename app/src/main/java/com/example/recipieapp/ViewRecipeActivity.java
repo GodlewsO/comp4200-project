@@ -39,10 +39,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
     private String recipeName, recipeDesc, recipeInstructions;
     private String[] recipeIngredients;
 
+    String recipeID ="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
+
+        recipeID = getIntent().getStringExtra("recipe-id");
 
         textViewName = findViewById(R.id.textViewName1);
         listViewIngredients = findViewById(R.id.listViewIngredients);
@@ -216,7 +220,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
             intent.putExtra("recipe-desc", recipeDesc);
             startActivity(intent);
         } else if(item.getItemId() == R.id.deleteRecipe) {
-
+            DatabaseHelper db = new DatabaseHelper(this);
+            db.removeRecipe(recipeID);
             finish();
         }
 
