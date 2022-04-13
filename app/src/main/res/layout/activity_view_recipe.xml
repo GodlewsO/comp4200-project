@@ -30,8 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/textview_border"
-            android:backgroundTint="@color/white"/>
+            android:background="@drawable/textview_border" />
 
         <TextView
             android:id="@+id/textView4"
@@ -54,8 +53,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/textview_border"
             android:padding="10dp"
-            android:textColor="#000000"
-            android:backgroundTint="@color/white"/>
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/textView6"
@@ -63,10 +61,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:text="SET  TIMER"
             android:fontFamily="casual"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:text="TIMER"
+            android:textColor="#000000"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <ProgressBar
             android:id="@+id/progressBarAlarm"
@@ -75,6 +74,17 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:progress="0" />
+
+        <EditText
+            android:id="@+id/editTextAlarmTime"
+            android:layout_width="150dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="HH:MM:SS"
+            android:inputType="time"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -103,17 +113,6 @@
                 android:backgroundTint="#fe0037"/>
         </LinearLayout>
 
-
-        <EditText
-            android:id="@+id/editTextAlarmTime"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="HH:MM:SS"
-            android:textSize="18sp"
-            android:inputType="time" />
 
     </LinearLayout>
 </ScrollView>

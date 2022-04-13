@@ -22,6 +22,7 @@
                 android:layout_width="302dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="12dp"
+                android:backgroundTint="@color/black"
                 android:ems="10"
                 android:hint="Ingredient *"
                 android:inputType="textPersonName"
@@ -54,8 +55,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextInstructions"
@@ -77,8 +77,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listView"
-                android:backgroundTint="@color/white"/>
+                app:layout_constraintTop_toBottomOf="@+id/listView" />
 
             <EditText
                 android:id="@+id/editTextDescription"
@@ -100,8 +99,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextName"
-                android:backgroundTint="@color/white"/>
+                app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
             <Button
                 android:id="@+id/btnAddIngredient"
@@ -127,8 +125,7 @@
                 app:layout_constraintHeight_min="48dp"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextIngredient"
-                android:backgroundTint="@color/white"/>
+                app:layout_constraintTop_toBottomOf="@+id/editTextIngredient" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -141,10 +138,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/orange_500"
         android:clickable="true"
         app:rippleColor="@color/teal_700"
         app:srcCompat="@drawable/ic_check"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:backgroundTint="#33cc33"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </RelativeLayout>

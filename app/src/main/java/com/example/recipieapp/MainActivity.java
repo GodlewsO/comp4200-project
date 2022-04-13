@@ -45,11 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getWindow().setBackgroundDrawableResource(R.drawable.bg_image);
-        ActionBar actionBar;
-        actionBar = getSupportActionBar();
-
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fe9815"));
-        actionBar.setBackgroundDrawable(colorDrawable);
 
         databaseHelper = RoomDBHelper.getInstance(this).recipeDAO();
         recipeIDs = new ArrayList<>();
