@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
@@ -55,6 +56,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textViewName.setText(recipeNames.get(position));
         holder.textViewDescription.setText(recipeDescriptions.get(position));
+
+        ArrayList<Integer> drawables = makeDrawableArrayList();
+        holder.imageView.setImageResource(drawables.get(position % drawables.size()));
+
+        if (position % 2 == 0) {
+            holder.cardView.setCardBackgroundColor(0xFFD2F3FB);
+        }
 
         // Delete prompt dialog
         androidx.appcompat.app.AlertDialog alertDialog =
@@ -102,6 +110,22 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         });
     }
 
+    private ArrayList<Integer> makeDrawableArrayList() {
+        ArrayList<Integer> drawables = new ArrayList<>();
+        drawables.add(R.drawable.cooking_vector_01);
+        drawables.add(R.drawable.cooking_vector_02);
+        drawables.add(R.drawable.cooking_vector_03);
+        drawables.add(R.drawable.cooking_vector_04);
+        drawables.add(R.drawable.cooking_vector_05);
+        drawables.add(R.drawable.cooking_vector_06);
+        drawables.add(R.drawable.cooking_vector_07);
+        drawables.add(R.drawable.cooking_vector_08);
+        drawables.add(R.drawable.cooking_vector_09);
+        drawables.add(R.drawable.cooking_vector_10);
+        drawables.add(R.drawable.cooking_vector_11);
+        return drawables;
+    }
+
     @Override
     public int getItemCount() {
         return recipeIDs.size();
@@ -110,6 +134,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, textViewDescription;
         LinearLayout recyclerLayout;
+        ImageView imageView;
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,6 +143,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewDescription = itemView.findViewById(R.id.textViewDescription);
             recyclerLayout = itemView.findViewById(R.id.recyclerLayout);
+            imageView = itemView.findViewById(R.id.imageView);
+            cardView = itemView.findViewById(R.id.cardView);
 
             animTranslate = AnimationUtils.loadAnimation(context, R.anim.anim_translate);
             recyclerLayout.setAnimation(animTranslate);
