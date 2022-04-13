@@ -1,5 +1,6 @@
 package com.example.recipieapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,6 +11,9 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,7 +34,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
     private Handler handlerTimer;
     private Runnable runnableOnSeconds;
 
-    MediaPlayer mediaPlayerAlarm;
+    private MediaPlayer mediaPlayerAlarm;
 
     private String recipeName, recipeDesc, recipeInstructions;
     private String[] recipeIngredients;
@@ -192,5 +196,25 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
     private String[] ingredientsToLst(String ingredientsStr) {
         return ingredientsStr.split(";");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.view_recipe_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.editRecipe) {
+            // add code to start new activity into EditRecipeActivity
+        } else if(item.getItemId() == R.id.deleteRecipe) {
+            // delete the item
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
