@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ViewRecipeActivity">
+    tools:context=".ViewRecipeActivity"
+    android:background="@color/yellow">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +20,7 @@
             android:layout_gravity="center"
             android:fontFamily="casual"
             android:text="INGREDIENTS"
+            android:textStyle="bold"
             android:textColor="#000000"
             android:textSize="26sp" />
 
@@ -28,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/textview_border" />
+            android:background="@drawable/textview_border"
+            android:backgroundTint="@color/white"/>
 
         <TextView
             android:id="@+id/textView4"
@@ -38,6 +41,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="casual"
             android:text="INSTRUCTIONS"
+            android:textStyle="bold"
             android:textAllCaps="true"
             android:textColor="#000000"
             android:textSize="26sp" />
@@ -50,7 +54,8 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/textview_border"
             android:padding="10dp"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:backgroundTint="@color/white"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -58,7 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:text="Set up an alarm"
+            android:text="Set An Alarm"
+            android:textStyle="italic"
             android:textSize="18sp" />
 
         <ProgressBar
@@ -79,7 +85,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Start" />
+                android:text="Start"
+                android:textStyle="bold"
+                android:backgroundTint="#33aa66"/>
 
             <Button
                 android:id="@+id/buttonCancelTimer"
@@ -87,7 +95,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:enabled="false"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:backgroundTint="#fe0037"/>
         </LinearLayout>
 
         <TextView
@@ -95,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Count down timer" />
+            android:text="Count Down" />
 
         <EditText
             android:id="@+id/editTextAlarmTime"
@@ -104,7 +115,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:gravity="center"
-            android:hint="[[Hours:]Minutes:]Seconds"
+            android:hint="[Hours:][Minutes:][Seconds:]"
             android:inputType="time" />
 
     </LinearLayout>

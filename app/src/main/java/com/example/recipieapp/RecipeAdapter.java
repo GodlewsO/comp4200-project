@@ -61,7 +61,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.imageView.setImageResource(drawables.get(position % drawables.size()));
 
         if (position % 2 == 0) {
-            holder.cardView.setCardBackgroundColor(0xFFD2F3FB);
+            holder.cardView.setCardBackgroundColor(0xE6D2F3FB);
         }
 
         // Delete prompt dialog

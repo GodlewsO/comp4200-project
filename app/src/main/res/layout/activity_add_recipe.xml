@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/yellow">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,10 +29,12 @@
                 android:maxLines="1"
                 android:minHeight="48dp"
                 android:singleLine="true"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btnAddIngredient"
                 app:layout_constraintHorizontal_bias="0.909"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
+                android:backgroundTint="@color/white"/>
 
             <EditText
                 android:id="@+id/editTextName"
@@ -48,10 +51,12 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:singleLine="true"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/white"/>
 
             <EditText
                 android:id="@+id/editTextInstructions"
@@ -69,10 +74,12 @@
                 android:paddingRight="10dp"
                 android:paddingBottom="10dp"
                 android:singleLine="false"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listView" />
+                app:layout_constraintTop_toBottomOf="@+id/listView"
+                android:backgroundTint="@color/white"/>
 
             <EditText
                 android:id="@+id/editTextDescription"
@@ -90,10 +97,12 @@
                 android:paddingTop="10dp"
                 android:paddingRight="10dp"
                 android:singleLine="true"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextName"
+                android:backgroundTint="@color/white"/>
 
             <Button
                 android:id="@+id/btnAddIngredient"
@@ -119,7 +128,8 @@
                 app:layout_constraintHeight_min="48dp"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextIngredient" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextIngredient"
+                android:backgroundTint="@color/white"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -135,6 +145,7 @@
         android:clickable="true"
         app:rippleColor="@color/teal_700"
         app:srcCompat="@drawable/ic_check"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:backgroundTint="#33cc33"/>
 
 </RelativeLayout>

@@ -1,9 +1,12 @@
 package com.example.recipieapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,7 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewRecipeActivity extends AppCompatActivity {
-    private final int INGREDIENT_SIZE = 128;
+    private final int INGREDIENT_SIZE = 130;
 
     private ListView listViewIngredients;
     private TextView textViewInstructions;

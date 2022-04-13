@@ -1,6 +1,7 @@
 package com.example.recipieapp;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#fe9815"));
+        actionBar.setBackgroundDrawable(colorDrawable);
+
         databaseHelper = RoomDBHelper.getInstance(this).recipeDAO();
         recipeIDs = new ArrayList<>();
         recipeNames = new ArrayList<>();
@@ -70,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                int result = getRecipeSearch(s);
+                int result = searchByName(s);
                 if (result >= 0) {
                     searchView.setQuery("", false);
                     searchView.setQueryHint(s);
@@ -117,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
      * Populates instance arrays from all recipes in database.
      */
     private void getRecipeData() {
-        List<Recipe> cursor = databaseHelper.getAllRecipes();
+        Cursor cursor = databaseHelper.retrieveData();
         populateArrays(cursor);
     }
 
@@ -131,6 +140,32 @@ public class MainActivity extends AppCompatActivity {
         return populateArrays(cursor);
     }
 
+    /**
+     * Searches a recipies name, description, and ingredients for a given string, and populates
+     * the recyclerView arrays if a match is found. Returns the number of results found.
+     *
+     * @param input: the given string to search
+     * @return the number of results found
+     */
+    private int searchByName(String input) {
+        populateArrays(databaseHelper.retrieveData());
+
+        for (int i = 0; i < recipeIDs.size();) {
+            if (!(recipeNames.get(i).toLowerCase().contains(input.toLowerCase()) ||
+                  recipeDescriptions.get(i).toLowerCase().contains(input.toLowerCase()) ||
+                  recipeIngredients.get(i).toLowerCase().contains(input.toLowerCase()))) {
+                recipeIDs.remove(i);
+                recipeNames.remove(i);
+                recipeDescriptions.remove(i);
+                recipeInstructions.remove(i);
+                recipeIngredients.remove(i);
+            } else {
+                i++;
+            }
+        }
+
+        return recipeIDs.size();
+    }
 
     /**
      * Populates instance arrays with data from given cursor object and returns the number
