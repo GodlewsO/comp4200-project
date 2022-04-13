@@ -140,6 +140,7 @@
         android:clickable="true"
         app:rippleColor="@color/teal_700"
         app:srcCompat="@drawable/ic_check"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:backgroundTint="#33cc33"/>
 
 </RelativeLayout>
