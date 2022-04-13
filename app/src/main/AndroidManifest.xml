@@ -13,7 +13,7 @@
         <activity android:name=".EditRecipeActivity"
             android:exported="false"
             android:parentActivityName=".ViewRecipeActivity"
-            android:label="You Can Cook"/>
+            android:label="Edit Recipe"/>
         <activity
             android:name=".ViewRecipeActivity"
             android:exported="false"

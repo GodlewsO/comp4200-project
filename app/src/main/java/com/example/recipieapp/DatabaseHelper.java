@@ -67,13 +67,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return sqLiteDatabase.rawQuery(query, null);
     }
 
-    long editRecipe(String id, String name, String description, String recipe) {
+    long editRecipe(String id, String name, String description, String recipe, String ingredients) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COLUMN_NAME, name);
         contentValues.put(COLUMN_DESCRIPTION, description);
         contentValues.put(COLUMN_INSTRUCTIONS, recipe);
+        contentValues.put(COLUMN_INGREDIENTS, ingredients);
 
         return sqLiteDatabase.update(TABLE_NAME, contentValues, "_id = ?", new String[]{id});
     }

@@ -40,17 +40,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayerAlarm;
 
-    private String recipeName, recipeDesc, recipeInstructions;
+    private String recipeID, recipeName, recipeDesc, recipeInstructions, recipeIngredientsStr;
     private String[] recipeIngredients;
 
-    String recipeID ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
-
-        recipeID = getIntent().getStringExtra("recipe-id");
 
         listViewIngredients = findViewById(R.id.listViewIngredients);
         textViewInstructions = findViewById(R.id.textViewInstructions);
@@ -60,10 +57,12 @@ public class ViewRecipeActivity extends AppCompatActivity {
         buttonCancelTimer = findViewById(R.id.buttonCancelTimer);
 
         Intent thisIntent = getIntent();
+        recipeID = thisIntent.getStringExtra("recipe-id");
         recipeName = thisIntent.getStringExtra("recipe-name");
         recipeDesc = thisIntent.getStringExtra("recipe-desc");
         recipeInstructions = thisIntent.getStringExtra("recipe-instructions");
-        recipeIngredients = ingredientsToLst(thisIntent.getStringExtra("recipe-ingredients"));
+        recipeIngredientsStr = thisIntent.getStringExtra("recipe-ingredients");
+        recipeIngredients = ingredientsToLst(recipeIngredientsStr);
 
         setTitle(recipeName.substring(0, 1).toUpperCase() + recipeName.substring(1));
         listViewIngredients.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -212,19 +211,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.view_recipe_menu, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.editRecipe) {
-            Intent intent = new Intent(this,EditRecipeActivity.class);
+            editRecipe();
 
-            intent.putExtra("recipe-name", recipeName);
-            intent.putExtra("recipe-inst", recipeInstructions);
-            intent.putExtra("recipe-desc", recipeDesc);
-            startActivity(intent);
         } else if(item.getItemId() == R.id.deleteRecipe) {
             DatabaseHelper db = new DatabaseHelper(this);
             db.removeRecipe(recipeID);
@@ -232,5 +226,16 @@ public class ViewRecipeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void editRecipe() {
+        Intent intent = new Intent(this, EditRecipeActivity.class);
+        intent.putExtra("recipe-id", recipeID);
+        intent.putExtra("recipe-name", recipeName);
+        intent.putExtra("recipe-desc", recipeDesc);
+        intent.putExtra("recipe-instructions", recipeInstructions);
+        intent.putExtra("recipe-ingredients", recipeIngredientsStr);
+        startActivity(intent);
+        finish();
     }
 }
