@@ -10,6 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipieApp">
+        <activity android:name=".EditRecipeActivity"
+            android:exported="false"
+            android:parentActivityName=".ViewRecipeActivity"
+            android:label="You Can Cook"/>
         <activity
             android:name=".ViewRecipeActivity"
             android:exported="false"

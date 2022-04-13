@@ -209,9 +209,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.editRecipe) {
-            // add code to start new activity into EditRecipeActivity
+            Intent intent = new Intent(this,EditRecipeActivity.class);
+
+            intent.putExtra("recipe-name", recipeName);
+            intent.putExtra("recipe-inst", recipeInstructions);
+            intent.putExtra("recipe-desc", recipeDesc);
+            startActivity(intent);
         } else if(item.getItemId() == R.id.deleteRecipe) {
-            // delete the item
+
             finish();
         }
 

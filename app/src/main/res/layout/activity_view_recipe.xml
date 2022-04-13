@@ -117,5 +117,6 @@
             android:gravity="center"
             android:hint="[[Hours:]Minutes:]Seconds"
             android:inputType="time" />
+
     </LinearLayout>
 </ScrollView>

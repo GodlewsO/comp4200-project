@@ -66,4 +66,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                        " WHERE " + COLUMN_NAME + " LIKE '" + recipeTitle + "%'";
         return sqLiteDatabase.rawQuery(query, null);
     }
+
+    long editRecipe(String id, String name, String description, String recipe) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COLUMN_NAME, name);
+        contentValues.put(COLUMN_DESCRIPTION, description);
+        contentValues.put(COLUMN_INSTRUCTIONS, recipe);
+
+        return sqLiteDatabase.update(TABLE_NAME, contentValues, "_id = ?", new String[]{id});
+    }
 }
