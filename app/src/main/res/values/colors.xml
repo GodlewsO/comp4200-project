@@ -11,6 +11,8 @@
     <color name="blue_100">#FFD2F3FB</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorStart">#ccebfb</color>
-    <color name="colorEnd">#4FE7FC</color>
+    <color name="colorStart">#FFccebfb</color>
+    <color name="colorEnd">#FF4FE7FC</color>
+    <color name="actionBar">#FFfe9815</color>
+    <color name="yellow">#FFffffa1</color>
 </resources>

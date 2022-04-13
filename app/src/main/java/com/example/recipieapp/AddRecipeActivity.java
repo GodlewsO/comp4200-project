@@ -44,12 +44,6 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
-        
-        ActionBar actionBar;
-        actionBar = getSupportActionBar();
-
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#003366"));
-        actionBar.setBackgroundDrawable(colorDrawable);
 
         editTextName = findViewById(R.id.editTextName);
         editTextDescription = findViewById(R.id.editTextDescription);

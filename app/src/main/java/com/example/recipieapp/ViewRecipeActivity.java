@@ -52,12 +52,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
-        ActionBar actionBar;
-        actionBar = getSupportActionBar();
-
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#003366"));
-        actionBar.setBackgroundDrawable(colorDrawable);
-
         listViewIngredients = findViewById(R.id.listViewIngredients);
         textViewInstructions = findViewById(R.id.textViewInstructions);
         editTextAlarmTime = findViewById(R.id.editTextAlarmTime);
