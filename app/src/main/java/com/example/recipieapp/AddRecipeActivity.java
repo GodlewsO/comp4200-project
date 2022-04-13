@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,8 @@ public class AddRecipeActivity extends AppCompatActivity {
     private ListView listView;
 
     private ArrayList<String> ingredientsLst;
-
+    ArrayAdapter arrayAdapter;
+    ViewGroup.LayoutParams params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,71 +52,89 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         ingredientsLst = new ArrayList<>();
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter<>(this,
+        arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, ingredientsLst);
         listView.setAdapter(arrayAdapter);
 
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params = listView.getLayoutParams();
 
         btnAdd.setOnClickListener(view -> {
-            DatabaseHelper databaseHelper = new DatabaseHelper(AddRecipeActivity.this);
-
-            // Check if at least one ingredient was added
-            if (ingredientsLst.size() < 1) {
-                makeToast(MISSING_INGREDIENTS_MESSAGE);
-                return;
-            }
-
-            // Check if any required fields are missing
-            if (editTextName.getText().toString().equals("") ||
-                    editTextDescription.toString().equals("") ||
-                    editTextInstructions.getText().toString().equals("")) {
-                makeToast(MISSING_INPUT_MESSAGE);
-                return;
-            }
-
-            // Add user input to database
-            if (databaseHelper.addRecipe(editTextName.getText().toString(),
-                    editTextDescription.getText().toString(),
-                    editTextInstructions.getText().toString(),
-                    ingredientsToString()) < 0) {
-                makeToast(ADD_FAILED_MESSAGE);
-            } else {
-                finish();
-            }
+            addRecipeToDB();
         });
-
 
         btnAddIngredient.setOnClickListener(view -> {
-            // Check if empty ingredient inputted
-            if (editTextIngredient.getText().toString().equals("")) {
-                makeToast(EMPTY_INPUT_MESSAGE);
-                return;
-            }
-
-            String ingredient = editTextIngredient.getText().toString();
-
-            // Validate ingredient size
-            if (ingredient.length() > MAX_INGREDIENT_SIZE) {
-                makeToast(TOO_LARGE_MESSAGE);
-                return;
-            }
-
-            // Validate ingredient characters
-            if (ingredient.contains(";")) {
-                makeToast(INVALID_CHARACTER_MESSAGE);
-                return;
-            }
-
-            editTextIngredient.setText("");
-
-            ingredientsLst.add(ingredient);
-            arrayAdapter.notifyDataSetChanged();
-            makeToast(INGREDIENT_ADDED_MESSAGE);
-
-            params.height = INGREDIENT_SIZE * ingredientsLst.size();
+            addIngredient();
         });
 
+        listView.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            ingredientsLst.remove(i);
+            arrayAdapter.notifyDataSetChanged();
+            updateIngredientHeight();
+            return true;
+        });
+    }
+
+
+    private void addRecipeToDB() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(AddRecipeActivity.this);
+
+        // Check if at least one ingredient was added
+        if (ingredientsLst.size() < 1) {
+            makeToast(MISSING_INGREDIENTS_MESSAGE);
+            return;
+        }
+
+        // Check if any required fields are missing
+        if (editTextName.getText().toString().equals("") ||
+                editTextDescription.toString().equals("") ||
+                editTextInstructions.getText().toString().equals("")) {
+            makeToast(MISSING_INPUT_MESSAGE);
+            return;
+        }
+
+        // Add user input to database
+        if (databaseHelper.addRecipe(editTextName.getText().toString(),
+                editTextDescription.getText().toString(),
+                editTextInstructions.getText().toString(),
+                ingredientsToString()) < 0) {
+            makeToast(ADD_FAILED_MESSAGE);
+        } else {
+            finish();
+        }
+    }
+
+    private void addIngredient( ) {
+        // Check if empty ingredient inputted
+        if (editTextIngredient.getText().toString().equals("")) {
+            makeToast(EMPTY_INPUT_MESSAGE);
+            return;
+        }
+
+        String ingredient = editTextIngredient.getText().toString();
+
+        // Validate ingredient size
+        if (ingredient.length() > MAX_INGREDIENT_SIZE) {
+            makeToast(TOO_LARGE_MESSAGE);
+            return;
+        }
+
+        // Validate ingredient characters
+        if (ingredient.contains(";")) {
+            makeToast(INVALID_CHARACTER_MESSAGE);
+            return;
+        }
+
+        editTextIngredient.setText("");
+
+        ingredientsLst.add(ingredient);
+        arrayAdapter.notifyDataSetChanged();
+        makeToast(INGREDIENT_ADDED_MESSAGE);
+
+        updateIngredientHeight();
+    }
+
+    private void updateIngredientHeight() {
+        params.height = INGREDIENT_SIZE * ingredientsLst.size();
     }
 
     private String ingredientsToString() {
